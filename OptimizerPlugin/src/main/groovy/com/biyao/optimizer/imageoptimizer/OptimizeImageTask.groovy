@@ -6,6 +6,7 @@ import org.gradle.api.GradleException
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
+import org.gradle.util.TextUtil
 
 /**
  * 图片转换任务
@@ -78,7 +79,11 @@ class OptimizeImageTask extends DefaultTask{
             }
         }
         images.each {
-            convertToWebp(it)
+            try{
+                convertToWebp(it)
+            }catch (Exception e){
+                println(e.getMessage())
+            }
         }
     }
 
