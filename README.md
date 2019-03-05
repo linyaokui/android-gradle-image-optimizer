@@ -1,5 +1,8 @@
 # android-gradle-image-optimizer
-Android gradle图片资源优化插件，可以在构建过程中动态将png 和 jpg文件转为webp格式。==此插件仅适合Android4.3及以上系统==
+（jcenter还未审核通过  暂时还不可以使用）</br>
+Android gradle图片资源优化插件，可以在构建过程中动态将png和jpg文件转为webp格式。</br>
+==此插件仅适合Android4.3及以上系统== </br>
+==构建系统支持mac windows(x86架构) linux系统==</br>
 # 使用方法
 ### 1.在项目的build.gradle文件中添加
     classpath 'com.biyao.optimizer:optimizeImage:1.0'
