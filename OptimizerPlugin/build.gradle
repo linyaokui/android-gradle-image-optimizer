@@ -1,0 +1,81 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation 'com.android.tools.build:gradle:3.0.1'
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+apply plugin: 'maven-publish'
+
+group "com.biyao.optimizer"
+version  "1.0"
+
+task sourceJar(type : Jar){
+    baseName 'optimizeImage'
+    classifier 'source' //分类器 和别的jar包区分
+    from sourceSets.main.allSource
+}
+
+task docJar(type : Jar , dependsOn:[javadoc,groovydoc]){
+    baseName 'optimizeImage'
+    classifier 'doc'
+    from javadoc.destinationDir,groovydoc.destinationDir
+}
+
+//配置工程工件产出（jar包） 默认带java jar包 不带source和doc 所以要配置一下
+artifacts {
+    archives sourceJar
+    archives docJar
+}
+
+//发布到本地Maven仓库 用于调试
+publishing{
+    publications{
+        optimizer(MavenPublication){
+            from components.java
+            artifactId = "optimizeImage"
+            artifact sourceJar //添加上传的工件
+            artifact docJar
+        }
+    }
+}
+
+
+//上传插件到jcenter
+///*
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
+    }
+}
+apply plugin: 'com.jfrog.bintray'
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray{
+    user = properties.getProperty('bintray_user')
+    key = properties.getProperty('bintray_api_key')
+    publications = ['optimizer']
+    pkg{
+        repo = 'BiyaoAndroidApp' //需要上传的仓库
+        name = 'BYOptimizer'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/linyaokui/android-gradle-image-optimizer'
+        version {
+            desc = 'biyao image resource optimize Gradle Bintray Plugin 1.0'
+            released  = new Date()
+            vcsTag = '1.0'
+        }
+    }
+
+}
+//*/
