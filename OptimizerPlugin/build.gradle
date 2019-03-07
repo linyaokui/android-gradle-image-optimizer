@@ -48,7 +48,6 @@ publishing{
 
 
 //上传插件到jcenter
-///*
 buildscript {
     repositories {
         jcenter()
@@ -76,6 +75,4 @@ bintray{
             vcsTag = '1.0'
         }
     }
-
 }
-//*/

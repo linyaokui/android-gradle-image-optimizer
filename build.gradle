@@ -4,7 +4,10 @@ buildscript {
     repositories {
         google()
         jcenter()
-        mavenLocal()
+//        mavenLocal()
+//        maven{
+//            url 'https://dl.bintray.com/biyao/BiyaoAndroidApp'
+//        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
